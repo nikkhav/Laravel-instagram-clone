@@ -5,17 +5,28 @@
         <div class="row">
             <div class="col-3">
                 <img
-                    src="https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg"
-                    class="rounded-circle" style="height: 11rem" alt="profile image">
+                    src="{{$user->profile->profileImage()}}"
+                    class="rounded-circle" style="height: 15rem" alt="profile image">
             </div>
             <div class="col-9 pt-2">
                 <div class="d-flex justify-content-between align-baseline">
-                    <h1>{{$user -> username}}</h1>
-                    <a href="/p/create">Add new post</a>
+                    <div class="d-flex align-items-center pb-3">
+                        <h1>{{$user -> username}}</h1>
+
+                        <button class="btn btn-primary btn-sm ms-4">
+                            Follow
+                        </button>
+                    </div>
+                    @can("update", $user->profile)
+                        <a href="/p/create">Add new post</a>
+                    @endcan
                 </div>
-                <a href="/profile/{{$user->id}}/edit">
-                    Edit profile
-                </a>
+                @can("update", $user->profile)
+                    <a href="/profile/{{$user->id}}/edit">
+                        Edit profile
+                    </a>
+                @endcan
+
                 <div class="d-flex">
                     <div class="pe-4">
                         <strong>
